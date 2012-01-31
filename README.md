@@ -1,5 +1,5 @@
 **YAMLverse** brings together [Universe], [YAML.node] and [c-c-config] to make
-application configuration a snap.
+application configuration a snap. [![Build Status](https://secure.travis-ci.org/AngryBytes/yamlverse.png)](http://travis-ci.org/AngryBytes/yamlverse)
 
 Usage is simple:
 
