@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "universe":   "0.0.x",
-        "libyaml":    "0.0.x",
+        "libyaml":    "0.1",
         "c-c-config": "0.0.x"
     },
     "devDependencies": {

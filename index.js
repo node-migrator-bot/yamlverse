@@ -1,6 +1,6 @@
 var path = require('path');
 var universe = require('universe');
-var yaml = require('libyaml');
+var YAML = require('libyaml');
 var ccconfig = require('c-c-config');
 
 
@@ -23,7 +23,7 @@ module.exports = exports = function(basename) {
         }
     }
 
-    var data = yaml.loadFileSync(filename);
+    var data = YAML.readFileSync(filename);
     var retval = cache[basename] = ccconfig(tags, data[0]);
     return retval;
 };
