@@ -9,23 +9,36 @@ var cache = {};
 
 
 // Read a config file.
-module.exports = exports = function(basename) {
-    var cached;
-    if (cached = cache[basename])
-        return cached;
+module.exports = exports = function(basename, defaults) {
+    if (!defaults)
+        defaults = {};
 
-    var filename = path.resolve(universe.config, basename + '.yml');
-    if (!path.existsSync(filename)) {
-        filename = path.resolve(universe.config, basename + '.yaml');
+    var data = cache[basename];
+    if (data == null) {
+        var filename = path.resolve(universe.config, basename + '.yml');
         if (!path.existsSync(filename)) {
-            var errMsg = "Config file '" + basename + "' does not exist";
-            throw new Error(errMsg);
+            filename = path.resolve(universe.config, basename + '.yaml');
+            if (!path.existsSync(filename)) {
+                filename = null;
+            }
         }
+
+        if (filename)
+            data = YAML.readFileSync(filename);
+        else
+            data = false;
+
+        cache[basename] = data;
     }
 
-    var data = YAML.readFileSync(filename);
-    var retval = cache[basename] = ccconfig(tags, data[0]);
-    return retval;
+    if (!data) {
+        if (defaults)
+            return defaults;
+        else
+            throw new Error("Config file '" + basename + "' does not exist");
+    }
+
+    return ccconfig(tags, defaults || {}, data[0]);
 };
 
 

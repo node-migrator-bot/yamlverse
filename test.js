@@ -20,6 +20,8 @@ test('basic config reading', function(t) {
             yamlverse.tags = "dev";
             t.equal(yamlverse('foo').three, 3,
                 'config data should match what was hand-written');
+            t.equal(yamlverse('foo', { five: 5 }).five, 5,
+                'defaults should apply for unspecified options');
 
             fs.writeFile(cfgPath, 'dev: { five: 5 }', function(err) {
                 t.error(err, 'rewrite test config file');
