@@ -20,6 +20,13 @@ test('basic config reading', function(t) {
     t.equal(yamlverse('foo', { five: 5 }).five, 5,
         'defaults should apply for unspecified options');
 
+    t.throws(function() {
+        yamlverse('bar');
+    }, { name: 'Error', message: "Config file 'bar' does not exist" },
+        'should throw if config file does not exist');
+    t.equal(yamlverse('bar', { three: 3 }).three, 3,
+        'should not throw if defaults are specified');
+
     fs.writeFileSync(cfgPath, 'dev: { five: 5 }');
     t.equal(yamlverse('foo').five, undefined,
         'processed config should be cached');

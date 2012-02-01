@@ -10,9 +10,6 @@ var cache = {};
 
 // Read a config file.
 module.exports = exports = function(basename, defaults) {
-    if (!defaults)
-        defaults = {};
-
     var data = cache[basename];
     if (data == null) {
         var filename = path.resolve(universe.config, basename + '.yml');
