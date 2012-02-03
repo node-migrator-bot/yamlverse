@@ -1,5 +1,4 @@
 var fs = require('fs');
-var path = require('path');
 var test = require('tap').test;
 var rimraf = require('rimraf');
 var universe = require('universe');
@@ -11,7 +10,7 @@ test('basic config reading', function(t) {
     fs.mkdirSync(testDir, 0700);
     universe.root = testDir;
 
-    var cfgPath = path.resolve(universe.config, 'foo.yml');
+    var cfgPath = universe.configPath('foo.yml');
     fs.writeFileSync(cfgPath, 'dev: { three: 3 }');
 
     yamlverse.tags = "dev";

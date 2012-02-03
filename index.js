@@ -12,9 +12,9 @@ var cache = {};
 module.exports = exports = function(basename, defaults) {
     var data = cache[basename];
     if (data == null) {
-        var filename = path.resolve(universe.config, basename + '.yml');
+        var filename = universe.configPath(basename + '.yml');
         if (!path.existsSync(filename)) {
-            filename = path.resolve(universe.config, basename + '.yaml');
+            filename = universe.configPath(basename + '.yaml');
             if (!path.existsSync(filename)) {
                 filename = null;
             }
