@@ -1,5 +1,5 @@
 **YAMLverse** brings together [Universe], [YAML.node] and [c-c-config] to make
-application configuration a snap. [![Build Status](https://secure.travis-ci.org/AngryBytes/yamlverse.png)](http://travis-ci.org/AngryBytes/yamlverse)
+application configuration a snap. [![Build Status](https://secure.travis-ci.org/Two-Screen/yamlverse.png)](http://travis-ci.org/Two-Screen/yamlverse)
 
 Usage is simple:
 
@@ -24,6 +24,6 @@ YAMLverse caches read configuration files. To reload configuration:
     dbConfig = yamlverse('database');
     // Reset state or check for changes in dbConfig.
 
- [Universe]: http://github.com/AngryBytes/universe
+ [Universe]: http://github.com/Two-Screen/universe
  [YAML.node]: http://github.com/stephank/yaml.node
- [c-c-config]: http://github.com/AngryBytes/c-c-config
+ [c-c-config]: http://github.com/Two-Screen/c-c-config
