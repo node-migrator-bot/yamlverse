@@ -15,7 +15,7 @@
         "node": ">=0.6.0"
     },
     "dependencies": {
-        "universe":   "0.0.x",
+        "universe":   "0.0.2",
         "libyaml":    "0.1",
         "c-c-config": "0.0.2"
     },
