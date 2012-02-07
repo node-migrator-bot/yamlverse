@@ -1,7 +1,7 @@
 {
     "name": "yamlverse",
     "description": "Read YAML configs with Universe",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "author": "Stéphan Kochen <stephan@angrybytes.com>",
     "keywords": ["config", "configuration"],
     "license": "MIT",
