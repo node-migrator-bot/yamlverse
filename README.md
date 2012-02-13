@@ -16,14 +16,6 @@ YAMLverse will look for files in the project's `config` directory. Files should
 have the `.yml` or `.yaml` extension. Tags are in the same format as expected
 by `c-c-config`.
 
-YAMLverse caches read configuration files. To reload configuration:
-
-    yamlverse.clearCache();
-
-    // Reload the configuration file.
-    dbConfig = yamlverse('database');
-    // Reset state or check for changes in dbConfig.
-
  [Universe]: http://github.com/Two-Screen/universe
  [YAML.node]: http://github.com/stephank/yaml.node
  [c-c-config]: http://github.com/Two-Screen/c-c-config
