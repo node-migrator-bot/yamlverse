@@ -4,29 +4,39 @@ var YAML = require('libyaml');
 var ccconfig = require('c-c-config');
 
 
-// Keep a cache for processed config files.
-var cache = {};
+exports.version = require('./package.json').version;
+const CONFIG_VERSION = 1;
+
+
+// YAMLverse configuration applies process wide. Here, we try to find existing
+// configuration. (And bail if the config version differs.)
+var config;
+if (config = process._yamlverse) {
+    if (config.version !== CONFIG_VERSION)
+        throw new Error("Incompatible versions of yamlverse are loaded");
+}
+else {
+    config = process._yamlverse = {
+        version: CONFIG_VERSION,
+        tags: []
+    };
+}
 
 
 // Read a config file.
 module.exports = exports = function(basename, defaults) {
-    var data = cache[basename];
-    if (data == null) {
-        var filename = universe.configPath(basename + '.yml');
+    var filename = universe.configPath(basename + '.yml');
+    if (!path.existsSync(filename)) {
+        filename = universe.configPath(basename + '.yaml');
         if (!path.existsSync(filename)) {
-            filename = universe.configPath(basename + '.yaml');
-            if (!path.existsSync(filename)) {
-                filename = null;
-            }
+            filename = null;
         }
-
-        if (filename)
-            data = YAML.readFileSync(filename);
-        else
-            data = false;
-
-        cache[basename] = data;
     }
+
+    if (filename)
+        data = YAML.readFileSync(filename);
+    else
+        data = false;
 
     if (!data) {
         if (defaults)
@@ -35,37 +45,29 @@ module.exports = exports = function(basename, defaults) {
             throw new Error("Config file '" + basename + "' does not exist");
     }
 
-    return ccconfig(tags, defaults || {}, data[0]);
+    return ccconfig(config.tags, defaults || {}, data[0]);
 };
 
 
 // Tags setting.
-var tags = [];
 Object.defineProperty(exports, 'tags', {
     get: function() {
-        return tags;
+        return config.tags;
     },
     set: function(value) {
         if (value == null) {
-            tags = [];
+            config.tags = [];
         }
         else if (value.length == null) {
             var re = /([\w-]+)/g;
             var input = String(value);
-            tags = [];
+            var tags = config.tags = [];
             var match;
             while (match = re.exec(input))
                 tags.push(match[1]);
         }
         else {
-            tags = value;
+            config.tags = value;
         }
     }
 });
-
-
-// Clear the cache. Should be used when rereading the configuration or
-// changing tags on the fly.
-exports.clearCache = function() {
-    cache = {};
-};

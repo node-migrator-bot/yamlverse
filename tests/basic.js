@@ -2,7 +2,7 @@ var fs = require('fs');
 var test = require('tap').test;
 var rimraf = require('rimraf');
 var universe = require('universe');
-var yamlverse = require('./');
+var yamlverse = require('../');
 
 var testDir = '/tmp/yamlverse-test';
 
@@ -27,17 +27,8 @@ test('basic config reading', function(t) {
         'should not throw if defaults are specified');
 
     fs.writeFileSync(cfgPath, 'dev: { five: 5 }');
-    t.equal(yamlverse('foo').five, undefined,
-        'processed config should be cached');
-
-    yamlverse.clearCache();
     t.equal(yamlverse('foo').five, 5,
-        'config should be reread after clearing cache');
-
-    yamlverse.tags = '';
-    yamlverse.clearCache();
-    t.equal(yamlverse('foo').five, undefined,
-        'tags can be altered on the fly with a cache clear');
+        'config should be reread on each invocation');
 
     rimraf(testDir, function(err) {
         if (err)
