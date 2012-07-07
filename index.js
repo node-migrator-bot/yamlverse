@@ -26,9 +26,9 @@ else {
 // Read a config file.
 module.exports = exports = function(basename, defaults) {
     var filename = universe.configPath(basename + '.yml');
-    if (!path.existsSync(filename)) {
+    if (!fs.existsSync(filename)) {
         filename = universe.configPath(basename + '.yaml');
-        if (!path.existsSync(filename)) {
+        if (!fs.existsSync(filename)) {
             filename = null;
         }
     }
